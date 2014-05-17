@@ -60,6 +60,7 @@ public final class InsanityRun extends JavaPlugin {
 	public static String gameVersion; // Store game version
 	public static ArrayList<String> helpText = new ArrayList<>(); // Array to hold help text
 	public static Integer idleKickTime; // How many idle seconds to kick player out of game
+	public static Integer blockJumpHeight; // How far under player to detect blocks
 	
 	public static Integer idleTaskID; // Task ID for idling players
 	public static Boolean broadcastWins; // Broadcast wins?
@@ -155,61 +156,10 @@ public final class InsanityRun extends JavaPlugin {
 		plugin.getConfig().set("en.help11", "/irun lnk|linkarenas <arena1> <arena2> - Link <arena1> to <arena2>");
 		plugin.getConfig().set("en.help12","/irun list - List arenas");
 
-		// Add key for tp'ing player to start of run
-		if (!plugin.getConfig().contains("waterRestartsRun")) {
-			plugin.getConfig().set("waterRestartsRun",false);
+		// Add key for how far under player to detect block jumped
+		if (!plugin.getConfig().contains("blockJumpHeight")) {
+			plugin.getConfig().set("blockJumpHeight",0.5F);
 		}
-		// Add key for tp'ing player to last checkpoint
-		if (!plugin.getConfig().contains("useCheckpoints")) {
-			plugin.getConfig().set("useCheckpoints",false);
-		}
-
-		// Add key NO tp'ing player at end of run
-		if (!plugin.getConfig().contains("noEndTeleport")) {
-			plugin.getConfig().set("noEndTeleport",false);
-		}
-			
-		// Added arenaList for list of arenas in /irun list
-		if (!plugin.getConfig().contains("arenaList")) {
-			getConfig().set("arenaList", Arrays.asList(arenaList));
-			plugin.getConfig().set("en.listArenas", "List of arenas");
-		}
-		// Value to kick if idle for more than x seconds
-		if (!plugin.getConfig().contains("idleKickTime")) {
-			plugin.getConfig().set("idleKickTime",2);
-			plugin.getConfig().set("en.idleKickText", "Game Over! You idled too long in game. Keep Running!");
-		}
-		
-		// Kick players whom tp out of the areana
-		if (!plugin.getConfig().contains("kickTPtext")) {
-			plugin.getConfig().set("en.kickTPtext", "Game over! No teleporting while in the arena!");
-		}
-
-		// Broadcast winning message or only local to player
-		if (!plugin.getConfig().contains("broadcastWins")) {
-			plugin.getConfig().set("broadcastWins",true);
-			plugin.getConfig().set("en.broadcastWinsText", " %s finished %s with %s %s. Time: %s");
-		}
-		// Charge player to play?
-		if (!plugin.getConfig().contains("vaultCharge")) {
-			plugin.getConfig().set("vaultCharge",false);
-			plugin.getConfig().set("en.vaultChargeText", "You were charged: ");
-			plugin.getConfig().set("en.notEnoughMoneyText", "You don't have enough money to play! Cost: ");
-			plugin.getConfig().set("en.setChargeTo", "charge is set to");
-		}
-
-		// Sign info text
-		plugin.getConfig().set("en.arenaNameText", "Arena Name: ");
-		plugin.getConfig().set("en.arenaChargeText", "Arena Charge: ");
-		plugin.getConfig().set("en.arenaPayText", "Arena Pay: ");
-		plugin.getConfig().set("en.arenaLinkText", "Arena Link: ");
-		plugin.getConfig().set("en.playersInArena", "Players: ");
-
-		// Link arenas text
-		plugin.getConfig().set("en.linkedTo", " linked to ");
-
-		// Fastest Runs text
-		plugin.getConfig().set("en.FastestRunsText", "Fastest Runs");
 				
 		this.saveConfig();
 	}
@@ -224,5 +174,6 @@ public final class InsanityRun extends JavaPlugin {
 		idleKickTime = plugin.getConfig().getInt("idleKickTime");
 		broadcastWins = plugin.getConfig().getBoolean("broadcastWins");
 		broadcastWinsText = plugin.getConfig().getString(useLanguage + ".broadcastWinsText");
+		blockJumpHeight = plugin.getConfig().getInt("blockJumpHeight");
 	}
 }
