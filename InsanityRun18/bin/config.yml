@@ -1,0 +1,76 @@
+# Config file for InsanityRun by WauloK
+# http://www.ObsidianLoft.com/
+# Do not edit this! Use commands!
+
+# useVault - Should we try to hook to vault for payments/charges ?
+# vaultCharge - Will we be charging players for runs?
+# useLanguage - Which language should we use? Other languages will be posted to the plugin page.
+# idleKickTime - If players stop moving, kick them out of the game after this many seconds. 4 works well.
+# broadcastWins - Broadcast run times and coins collected to the whole server or just the player
+# noEndTeleport - If this is true, when players reach the end of the run they will not teleport to the sign.
+# useCheckpoints - If this is true, when players cross the checkpoint they will teleport back to it when landing in water/lava
+# waterRestartsRun - If player lands in the water/lava, restart the run at the run spawn. Don't set this and checkpoints to true.
+# en - The game texts for English language
+
+useVault: true
+
+useLanguage: en
+
+idleKickTime: 2
+
+broadcastWins: true
+
+vaultCharge: false
+
+noEndTeleport: false
+
+useCheckpoints: true
+
+waterRestartsRun: false
+
+en:
+  help1: == Help for Insanity Run by WauloK ==  (v2.0)
+  help2: /irun join <arena> - Join <arena>
+  help3: /irun leave <arena> - Leave <arena>
+  help4: /irun cre|create <arena> - Create and name <arena>
+  help5: /irun del|delete <arena> - Delete <arena>
+  help6: /irun ssp|setspawn <arena> - Set spawn location for <arena>
+  help7: /irun spa|setpay <arena> <amount> - Set pay $<amount> of <arena>
+  help8: /irun sch|setcharge <arena> <amount> - Set charge $<amount> of <arena>
+  help9: /irun adj|adjoin <player> <arena> - Make <player> join <arena>
+  help10: /irun adl|adleave <player> <arena> - Make <player> leave <arena>
+  help11: /irun lnk|linkarenas <arena1> <arena2> - Link <arena1> to <arena2>
+  help12: /irun list - List arenas
+  noCmdPerms: You do not have permissions for command
+  noArena: does not exist
+  readyToPlay: You are now ready to play
+  haveNowLeft: You have now left
+  haveNotJoined: You haven't joined this game yet!
+  createdArena: You have created arena
+  setSpawnFor: You have set the spawn for
+  setPayTo: payout is set to
+  payCurrency: dollars
+  vaultNotFound: Vault not found but is enabled in config
+  vaultFound: Vault found and enabled in config
+  vaultEnabled: has Vault enabled in config.yml
+  vaultDisabled: has Vault disabled in config.yml
+  noSignArenaName: You need to supply an arena name
+  arenaDeleted: Deleted arena
+  noSignPerms: You don't have permissions to create a sign
+  signCreated: You created a join sign for arena
+  gameOver: InsanityRun Game Over! You collected
+  gameCurrency: coins
+  vaultAward: Congratulations! You were paid
+  idleKickText: Game Over! You idled too long in game. Keep Running!
+  broadcastWinsText: ' %s finished %s with %s %s. Time: %s'
+  vaultChargeText: 'You were charged: '
+  notEnoughMoneyText: 'You don''t have enough money to play! Cost: '
+  setChargeTo: charge is set to
+  arenaNameText: 'Arena Name: '
+  arenaChargeText: 'Arena Charge: '
+  arenaPayText: 'Arena Pay: '
+  arenaLinkText: 'Arena Link: '
+  linkedTo: ' linked to '
+  playersInArena: 'Players: '
+  kickTPtext: Game over! No teleporting while in the arena!
+  fastestRunsText: Fastest Runs
