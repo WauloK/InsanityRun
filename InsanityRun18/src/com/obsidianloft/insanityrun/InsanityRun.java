@@ -19,7 +19,6 @@ package com.obsidianloft.insanityrun;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -60,7 +59,7 @@ public final class InsanityRun extends JavaPlugin {
 	public static String gameVersion; // Store game version
 	public static ArrayList<String> helpText = new ArrayList<>(); // Array to hold help text
 	public static Integer idleKickTime; // How many idle seconds to kick player out of game
-	public static Integer blockJumpHeight; // How far under player to detect blocks
+	public static Float blockJumpHeight; // How far under player to detect blocks
 	
 	public static Integer idleTaskID; // Task ID for idling players
 	public static Boolean broadcastWins; // Broadcast wins?
@@ -145,7 +144,6 @@ public final class InsanityRun extends JavaPlugin {
 	}
 
 	// Configure new/missing config.yml keys
-	@SuppressWarnings("unchecked")
 	private void configureKeys() {
 		// Added new, missing keys after 1.3.
 		plugin.getConfig().set("en.vaultAward","Congratulations! You were paid");
@@ -174,6 +172,6 @@ public final class InsanityRun extends JavaPlugin {
 		idleKickTime = plugin.getConfig().getInt("idleKickTime");
 		broadcastWins = plugin.getConfig().getBoolean("broadcastWins");
 		broadcastWinsText = plugin.getConfig().getString(useLanguage + ".broadcastWinsText");
-		blockJumpHeight = plugin.getConfig().getInt("blockJumpHeight");
+		blockJumpHeight = (float) plugin.getConfig().getDouble("blockJumpHeight");
 	}
 }

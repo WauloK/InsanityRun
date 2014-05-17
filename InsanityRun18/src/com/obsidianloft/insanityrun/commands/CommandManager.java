@@ -26,6 +26,7 @@ import org.bukkit.entity.Player;
 import com.obsidianloft.insanityrun.GameManager;
 import com.obsidianloft.insanityrun.InsanityRun;
 
+@SuppressWarnings("deprecation")
 public class CommandManager implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

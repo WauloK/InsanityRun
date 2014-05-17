@@ -1,7 +1,7 @@
 name: InsanityRun
 main:  com.obsidianloft.insanityrun.InsanityRun
 url: http://www.ObsidianLoft.com/
-version: 2.8
+version: 3.0
 author: WauloK
 softdepend: [Vault]
 permissions:

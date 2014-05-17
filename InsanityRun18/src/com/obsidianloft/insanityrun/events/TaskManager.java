@@ -33,27 +33,23 @@ import com.obsidianloft.insanityrun.iPlayer;
 public class TaskManager implements Runnable {
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void run() {
 		ArrayList<String> playersToKickForIdling = new ArrayList<String>();
-		ArrayList<String> playersToKickForTPing = new ArrayList<String>();
 		
 		Iterator<String> iterator = InsanityRun.playerObject.keySet().iterator();
 		while(iterator.hasNext()) {
-			int lastX,lastY,lastZ;
-			int locX,locY,locZ;
+			int lastX,lastZ;
+			int locX,locZ;
 			String playerName = iterator.next();
 			iPlayer playerObject = InsanityRun.playerObject.get(playerName);
 			Player player = Bukkit.getServer().getPlayer(playerName);
-			String arenaWorld = playerObject.getArenaWorld();
 			Location loc = player.getLocation();
-			String currentWorld = player.getLocation().getWorld().getName();
 			int tempIdleCount=0;
 			
 			lastX=playerObject.getIdleX();
-			lastY=playerObject.getLastY();
 			lastZ=playerObject.getIdleZ();
 			locX=(int) loc.getX();
-			locY=(int) loc.getY();
 			locZ=(int) loc.getZ();
 			playerObject.setIdleX(locX);
 			playerObject.setIdleZ(locZ);
@@ -78,13 +74,6 @@ public class TaskManager implements Runnable {
 					playersToKickForIdling.add(playerName);
 				}
 			}
-			
-			// Extra check to prevent tping
-			if (!arenaWorld.equals(currentWorld) || (Math.abs(locX-lastX)>20) || (Math.abs(locY-lastY)>20) || (Math.abs(locZ-lastZ)>20)) {
-				if (playerObject.getInGame()) {
-						playersToKickForTPing.add(playerName);
-				}
-			}
 		}
 		// If players in idlekick list, kick them
 		for (String idlePlayers:playersToKickForIdling) {
@@ -95,16 +84,6 @@ public class TaskManager implements Runnable {
 			GameManager.gameOver(player, playerObject.getInArena(), playerObject);
 			InsanityRun.plugin.getServer().getPlayer(idlePlayers).sendMessage(ChatColor.RED + InsanityRun.plugin.getConfig().getString(InsanityRun.useLanguage + ".idleKickText"));
 			GameManager.refundMoney(arenaName,idlePlayers);
-		}
-		// If players in TPkick list, kick them
-		for (String tpPlayers:playersToKickForTPing) {
-			Player player = InsanityRun.plugin.getServer().getPlayer(tpPlayers);
-			iPlayer playerObject = InsanityRun.playerObject.get(tpPlayers);
-			String arenaName = playerObject.getInArena();
-			player.teleport(playerObject.getSignClickLoc());
-			GameManager.gameOver(player, playerObject.getInArena(), playerObject);
-			InsanityRun.plugin.getServer().getPlayer(tpPlayers).sendMessage(ChatColor.RED + InsanityRun.plugin.getConfig().getString(InsanityRun.useLanguage + ".kickTPtext"));
-			GameManager.refundMoney(arenaName,tpPlayers);
 		}
 	}
 }

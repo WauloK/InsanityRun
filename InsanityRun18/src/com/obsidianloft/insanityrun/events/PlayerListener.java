@@ -48,6 +48,7 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
@@ -90,7 +91,7 @@ public class PlayerListener implements Listener {
 				currentPlayerObject.setLastX(locX);
 				currentPlayerObject.setLastY(locY);
 				currentPlayerObject.setLastZ(locZ);
-				loc.setY(loc.getY() - 0.5F); // Block under feet
+				loc.setY(loc.getY() - InsanityRun.blockJumpHeight); // Block under feet
 
 				Material blockOn = loc.getWorld().getBlockAt(loc).getType();
 				int potionDuration = 20 * 2;
@@ -203,6 +204,22 @@ public class PlayerListener implements Listener {
 		}
 	}
 
+	// Stop players teleporting
+	@EventHandler
+	public void onTeleport(PlayerTeleportEvent event)
+	{
+		final Player player = event.getPlayer();
+		final String playerName = player.getName();
+		final iPlayer currentPlayerObject = InsanityRun.playerObject.get(playerName);
+		if (InsanityRun.playerObject.size() > 0) {
+			if (currentPlayerObject.getInGame()) { 
+				if (event.getCause() == PlayerTeleportEvent.TeleportCause.COMMAND || event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
+					event.setCancelled(true);
+				}
+			}
+		}
+	}
+	
 	// Stop player going hungry
 	@EventHandler(priority = EventPriority.MONITOR)
 	public static void onFoodLevelChangeEvent(FoodLevelChangeEvent event){
@@ -273,6 +290,7 @@ public class PlayerListener implements Listener {
 	}
 
 	// If landing in water or lava restarts the run
+	@SuppressWarnings("deprecation")
 	private static void waterRestart(iPlayer currentPlayerObject) {
 		Player player = InsanityRun.plugin.getServer().getPlayer(currentPlayerObject.getPlayerName());
 		currentPlayerObject.setCoins(0);
@@ -286,6 +304,7 @@ public class PlayerListener implements Listener {
 	}
 
 	// Checkpoint restart
+	@SuppressWarnings("deprecation")
 	private static void checkpointRestart(iPlayer currentPlayerObject) {
 		Player player = InsanityRun.plugin.getServer().getPlayer(currentPlayerObject.getPlayerName());
 		player.setFireTicks(0);
@@ -303,6 +322,7 @@ public class PlayerListener implements Listener {
 	}
 
 	// Default restart
+	@SuppressWarnings("deprecation")
 	private static void defaultRestart(iPlayer currentPlayerObject) {
 		Player player = InsanityRun.plugin.getServer().getPlayer(currentPlayerObject.getPlayerName());
 		player.setFireTicks(0);
@@ -313,6 +333,7 @@ public class PlayerListener implements Listener {
 	}
 
 	// Player ran over Redstone. End the level and start next or end game
+	@SuppressWarnings("deprecation")
 	private static void endLevelOrGame(final iPlayer currentPlayerObject) {
 		Long runTime = System.currentTimeMillis()-currentPlayerObject.getStartRaceTime();
 		final Player player = InsanityRun.plugin.getServer().getPlayer(currentPlayerObject.getPlayerName());
@@ -392,6 +413,7 @@ public class PlayerListener implements Listener {
 	}
 
 	// Can player afford to play next arena?
+	@SuppressWarnings("deprecation")
 	private static boolean canAfford(iPlayer currentPlayerObject, String arenaName) {
 		Player player = InsanityRun.plugin.getServer().getPlayer(currentPlayerObject.getPlayerName());
 		String playerName = currentPlayerObject.getPlayerName();

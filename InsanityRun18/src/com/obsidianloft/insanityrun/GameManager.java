@@ -50,7 +50,6 @@ public class GameManager {
 
 	public static void joinGame(Player player, String arenaName) {
 		String playerName = player.getName();
-		iPlayer newPlayerObject = new iPlayer();
 		if (!player.hasPermission("insanityrun.join")) {
 			player.sendMessage(ChatColor.RED + InsanityRun.plugin.getConfig().getString(InsanityRun.useLanguage + ".noCmdPerms") + " join");
 			return;
@@ -79,6 +78,7 @@ public class GameManager {
 		}
 
 		// Player does have permission to play
+		iPlayer newPlayerObject = new iPlayer();
 		player.sendMessage(ChatColor.GREEN + InsanityRun.plugin.getConfig().getString(InsanityRun.useLanguage + ".readyToPlay"));
 
 		// Construct new player object
@@ -291,6 +291,7 @@ public class GameManager {
 	}
 	
 	// When server restarts, kick all players to spawn
+	@SuppressWarnings("deprecation")
 	public static void serverRestartKick() {
 		ArrayList<String> playersToKick = new ArrayList<String>();
 		Iterator<String> iterator = InsanityRun.playerObject.keySet().iterator();
@@ -298,6 +299,7 @@ public class GameManager {
 			String playerName = iterator.next();
 			playersToKick.add(playerName);
 		}
+		
 		// If players in idlekick list, kick them
 		for (String idlePlayers:playersToKick) {
 			Player player = InsanityRun.plugin.getServer().getPlayer(idlePlayers);
