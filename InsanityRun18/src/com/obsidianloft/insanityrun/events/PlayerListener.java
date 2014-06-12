@@ -210,11 +210,13 @@ public class PlayerListener implements Listener {
 	{
 		final Player player = event.getPlayer();
 		final String playerName = player.getName();
-		final iPlayer currentPlayerObject = InsanityRun.playerObject.get(playerName);
+		final iPlayer playerObject = InsanityRun.playerObject.get(playerName);
 		if (InsanityRun.playerObject.size() > 0) {
-			if (currentPlayerObject.getInGame()) { 
-				if (event.getCause() == PlayerTeleportEvent.TeleportCause.COMMAND || event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-					event.setCancelled(true);
+			if (playerObject != null) {
+				if (playerObject.getInGame()) { 
+					if (event.getCause() == PlayerTeleportEvent.TeleportCause.COMMAND || event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
+						event.setCancelled(true);
+					}
 				}
 			}
 		}
